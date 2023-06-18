@@ -1,39 +1,42 @@
 package bedware.tools;
 
-enum Bang {
-    // Searching services
-    DUCKDUCKGO("d", "https://duckduckgo.com/?q=%s"),
-    GOOGLE("g", "https://google.com/search?q=%s"),
-    STACKOVERFLOW("so", "https://duckduckgo.com/?q=%s site:stackoverflow.com"),
-    NEOVIMCRAFT("vp", "https://neovimcraft.com/?search=%s"),
-    MY_GITHUB_STARS("ghs", "https://github.com/bedware?q=%s&tab=stars"),
-    MY_GITHUB_ME("ghme", "https://github.com/bedware/%s"),
+import org.snakeyaml.engine.v2.api.Load;
+import org.snakeyaml.engine.v2.api.LoadSettings;
 
-    // Apps
-    INFOMATE("news", "https://infomate.club/"),
-    AI_LIBRARY("ailib", "https://library.phygital.plus/"),
-    EXCALIDRAW("draw", "https://excalidraw.com/"),
-    BING("bing", "https://www.bing.com/search?q=Bing+AI&showconv=1"),
-    DEEL("deel", "https://app.deel.com"),
-    GOOGLE_SHEETS("sheets", "https://docs.google.com/spreadsheets/"),
-    GOOGLE_DOCUMENTS("docs", "https://docs.google.com/document/");
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-    static final Bang DEFAULT_SEARCH_ENGINE = Bang.DUCKDUCKGO;
-
-    Bang(String shortcut, String uri) {
-        this.shortcut = shortcut;
-        this.uri = uri;
+record Bang(String name, String shortcut, String uri) {
+    static Map<String, Bang> bangs = new HashMap<>();
+    static {
+        Load load = new Load(LoadSettings.builder().build());
+        InputStream inputStream = Bang.class.getClassLoader().getResourceAsStream("config.yaml");
+        ArrayList<Map<String, String>> bangsFromFile = (ArrayList<Map<String, String>>) load.loadFromInputStream(inputStream);
+        for (Map<String,String> bang : bangsFromFile) {
+            bangs.put(bang.get("shortcut"), new Bang(bang.get("name"), bang.get("shortcut"), bang.get("uri")));
+        }
     }
 
-    final private String shortcut;
-    final private String uri;
+    static final Bang DEFAULT_SEARCH_ENGINE = bangs.getOrDefault("d", new Bang("DuckDuckGo", "d", "https://duckduckgo.com/?q=%s"));
+
     final static String BANG_MARKER = "!";
 
-    public String getShortcut() {
+    public String getShortcutWithBangMarker() {
         return BANG_MARKER + shortcut;
     }
+    static Bang selectEngineByQuery(String searchQuery) {
+        if (searchQuery.startsWith(BANG_MARKER)) {
+            String bangFromQuery = getBangFromQuery(searchQuery);
+            if (Bang.bangs.containsKey(bangFromQuery)) {
+                return Bang.bangs.get(bangFromQuery);
+            }
+        }
+        return Bang.DEFAULT_SEARCH_ENGINE;
+    }
 
-    public String getUri() {
-        return uri;
+    private static String getBangFromQuery(String searchQuery) {
+        return searchQuery.contains(" ") ? searchQuery.substring(BANG_MARKER.length(), searchQuery.indexOf(" ")) : searchQuery.substring(BANG_MARKER.length());
     }
 }
