@@ -18,6 +18,7 @@ public class MyBangServer {
             String redirectTo = bang(searchQuery);
             exchange.getResponseHeaders().add("Location", redirectTo);
             exchange.sendResponseHeaders(307, 0);
+            exchange.close();
         });
         server.start();
         System.out.println("Server started");

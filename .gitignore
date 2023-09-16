@@ -12,3 +12,4 @@ target/
 # tmp
 my-bang/
 my-bang-runtime/
+dependency-reduced-pom.xml

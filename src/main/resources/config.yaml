@@ -42,3 +42,6 @@
 - name: GOOGLE_DOCUMENTS
   shortcut: docs
   uri: https://docs.google.com/document/
+- name: BEDWARE
+  shortcut: bedware
+  uri: https://wg.bedware.pro

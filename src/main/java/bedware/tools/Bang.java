@@ -3,6 +3,8 @@ package bedware.tools;
 import org.snakeyaml.engine.v2.api.Load;
 import org.snakeyaml.engine.v2.api.LoadSettings;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,10 +14,18 @@ record Bang(String name, String shortcut, String uri) {
     static Map<String, Bang> bangs = new HashMap<>();
     static {
         Load load = new Load(LoadSettings.builder().build());
-        InputStream inputStream = Bang.class.getClassLoader().getResourceAsStream("config.yaml");
-        ArrayList<Map<String, String>> bangsFromFile = (ArrayList<Map<String, String>>) load.loadFromInputStream(inputStream);
-        for (Map<String,String> bang : bangsFromFile) {
-            bangs.put(bang.get("shortcut"), new Bang(bang.get("name"), bang.get("shortcut"), bang.get("uri")));
+//        InputStream inputStream = Bang.class.getClassLoader().getResourceAsStream("config.yaml");
+        try {
+            FileInputStream inputStream = new FileInputStream("config.yaml");
+            ArrayList<Map<String, String>> bangsFromFile = (ArrayList<Map<String, String>>) load.loadFromInputStream(inputStream);
+            for (Map<String,String> bang : bangsFromFile) {
+                bangs.put(bang.get("shortcut"), new Bang(bang.get("name"), bang.get("shortcut"), bang.get("uri")));
+                System.out.println(bang.get("name"));
+            }
+            System.out.println("Bangs loaded.");
+            inputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
