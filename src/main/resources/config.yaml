@@ -42,6 +42,16 @@
 - name: GOOGLE_DOCUMENTS
   shortcut: docs
   uri: https://docs.google.com/document/
-- name: BEDWARE
-  shortcut: bedware
+- name: WG
+  shortcut: wg
   uri: https://wg.bedware.pro
+- name: TYPE_RACER
+  shortcut: race
+  uri: https://www.nitrotype.com/garage
+- name: TRANSLATE
+  shortcut: tr
+  uri: https://www.deepl.com/translator
+- name: WRITE
+  shortcut: write
+  uri: https://www.deepl.com/write
+
