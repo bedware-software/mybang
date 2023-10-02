@@ -10,5 +10,6 @@ class MyBangServerTest {
         assertEquals("https://github.com/bedware?q=fzf&tab=stars", MyBangServer.BangEngine.bang("!ghs fzf"));
         assertEquals("https://github.com/bedware/.dotfiles", MyBangServer.BangEngine.bang("!ghme .dotfiles"));
         assertEquals("https://github.com/bedware/", MyBangServer.BangEngine.bang("!ghme"));
+        assertEquals("https://duckduckgo.com/?q=!dh", MyBangServer.BangEngine.bang("!dh"));
     }
 }

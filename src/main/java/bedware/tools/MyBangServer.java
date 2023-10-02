@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 import static bedware.tools.MyBangServer.BangEngine.bang;
 
@@ -28,9 +29,15 @@ public class MyBangServer {
         public static String bang(String query) {
             System.out.println("From:" + query);
 
-            Bang selectedEngine = Bang.selectEngineByQuery(query);
-            String queryWithoutBang = query.replace(selectedEngine.getShortcutWithBangMarker(), "").trim();
-            String target = selectedEngine.uri().replace("%s", URLEncoder.encode(queryWithoutBang, StandardCharsets.UTF_8));
+            Optional<Bang> selectedEngine = Bang.selectEngineByQuery(query);
+            String target;
+            if (selectedEngine.isPresent()) {
+                var engine = selectedEngine.get();
+                String queryWithoutBang = query.replace(engine.getShortcutWithBangMarker(), "").trim();
+                target = engine.uri().replace("%s", URLEncoder.encode(queryWithoutBang, StandardCharsets.UTF_8));
+            } else {
+                target = Bang.DEFAULT_SEARCH_ENGINE.replace("%s", query);
+            }
 
             System.out.println("To:" + target);
             return target;

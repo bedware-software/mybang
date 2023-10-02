@@ -13,9 +13,9 @@ class BangTest {
 
     @Test
     void testSelectEngineByQuery() {
-        Bang bang = Bang.selectEngineByQuery("!ghs fzf");
-        assertEquals("MY_GITHUB_STARS", bang.name());
-        Bang bang2 = Bang.selectEngineByQuery("!ghme");
-        assertEquals("MY_GITHUB_ME", bang2.name());
+        var bang = Bang.selectEngineByQuery("!ghs fzf");
+        assertEquals("MY_GITHUB_STARS", bang.get().name());
+        var bang2 = Bang.selectEngineByQuery("!ghme");
+        assertEquals("MY_GITHUB_ME", bang2.get().name());
     }
 }
