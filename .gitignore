@@ -3,7 +3,12 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### IntelliJ IDEA ###
+# Eclipse
+.settings/
+.classpath
+.project
+
+# IntelliJ IDEA
 .idea/
 *.iws
 *.iml

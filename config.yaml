@@ -1,10 +1,4 @@
 # Searching services
-- name: DUCKDUCKGO
-  shortcut: d
-  uri: https://duckduckgo.com/?q=%s
-- name: GOOGLE
-  shortcut: g
-  uri: https://google.com/search?q=%s
 - name: STACKOVERFLOW
   shortcut: so
   uri: https://duckduckgo.com/?q=%s site:stackoverflow.com
@@ -20,6 +14,9 @@
 - name: MY_GITHUB_REPOS
   shortcut: ghr
   uri: https://github.com/bedware?tab=repositories&q=%s
+- name: LEARN_X_IN_Y_MINUTES
+  shortcut: learn
+  uri: https://learnxinyminutes.com/docs/%s/
 # Apps
 - name: INFOMATE
   shortcut: news
@@ -54,4 +51,7 @@
 - name: WRITE
   shortcut: write
   uri: https://www.deepl.com/write
+- name: NEOVIM_DOCS
+  shortcut: nvim
+  uri: https://neovim.io/doc/user/
 

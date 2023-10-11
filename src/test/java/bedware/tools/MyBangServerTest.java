@@ -11,5 +11,6 @@ class MyBangServerTest {
         assertEquals("https://github.com/bedware/.dotfiles", MyBangServer.BangEngine.bang("!ghme .dotfiles"));
         assertEquals("https://github.com/bedware/", MyBangServer.BangEngine.bang("!ghme"));
         assertEquals("https://duckduckgo.com/?q=!dh", MyBangServer.BangEngine.bang("!dh"));
+        assertEquals("https://neovim.io/doc/user/", MyBangServer.BangEngine.bang("!nvim"));
     }
 }
