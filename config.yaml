@@ -17,6 +17,12 @@
 - name: LEARN_X_IN_Y_MINUTES
   shortcut: learn
   uri: https://learnxinyminutes.com/docs/%s/
+- name: MATH
+  shortcut: math
+  uri: https://www.mathsisfun.com/search/search.html?query=%s
+- name: JULIA
+  shortcut: julia
+  uri: https://docs.julialang.org/en/v1/search/?q=%s
 # Apps
 - name: INFOMATE
   shortcut: news
@@ -41,7 +47,7 @@
   uri: https://docs.google.com/document/
 - name: WG
   shortcut: wg
-  uri: https://wg.bedware.pro
+  uri: https://wg.itry.su
 - name: TYPE_RACER
   shortcut: race
   uri: https://www.nitrotype.com/garage
@@ -54,4 +60,7 @@
 - name: NEOVIM_DOCS
   shortcut: nvim
   uri: https://neovim.io/doc/user/
+- name: MARKDOWN
+  shortcut: md
+  uri: https://markdownguide.offshoot.io/basic-syntax/
 

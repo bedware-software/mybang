@@ -1,22 +1,24 @@
 package bedware.tools;
 
-import com.sun.net.httpserver.HttpServer;
+import static bedware.tools.MyBangServer.BangEngine.bang;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
-import static bedware.tools.MyBangServer.BangEngine.bang;
+import com.sun.net.httpserver.HttpServer;
 
 public class MyBangServer {
+
     public static void main(String[] args) throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
         server.createContext("/", (exchange) -> {
             System.out.println("--------------");
-            String searchQuery = exchange.getRequestURI().getPath().substring("/".length());
-            String redirectTo = bang(searchQuery);
+            String query = exchange.getRequestURI().getPath().substring("/".length());
+            String redirectTo = bang(query);
             exchange.getResponseHeaders().add("Location", redirectTo);
             exchange.sendResponseHeaders(307, 0);
             exchange.close();
@@ -26,21 +28,31 @@ public class MyBangServer {
     }
 
     static class BangEngine {
+
+        record BangQuery(String target, String query) {}
+
         public static String bang(String query) {
             System.out.println("From:" + query);
+            query = URLDecoder.decode(query, StandardCharsets.UTF_8);
 
+            BangQuery bang = _bang(query);
+
+            String target = bang.target.replace("%s", URLEncoder.encode(bang.query, StandardCharsets.UTF_8));
+            System.out.println("To:" + target);
+            return target;
+        }
+
+        private static BangQuery _bang(String query) {
             Optional<Bang> selectedEngine = Bang.selectEngineByQuery(query);
             String target;
             if (selectedEngine.isPresent()) {
                 var engine = selectedEngine.get();
-                String queryWithoutBang = query.replace(engine.getShortcutWithBangMarker(), "").trim();
-                target = engine.uri().replace("%s", URLEncoder.encode(queryWithoutBang, StandardCharsets.UTF_8));
+                query = query.replace(engine.getShortcutWithBangMarker(), "").trim();
+                target = engine.uri();
             } else {
-                target = Bang.DEFAULT_SEARCH_ENGINE.replace("%s", query);
+                target = Bang.DEFAULT_SEARCH_ENGINE;
             }
-
-            System.out.println("To:" + target);
-            return target;
+            return new BangQuery(target, query);
         }
     }
 }
