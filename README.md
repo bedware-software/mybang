@@ -51,3 +51,6 @@ Connection: keep-alive
 Location: https://github.com/bedware?q=&tab=stars
 ```
 Congratulations! You are ready to use it :)
+
+## Future plans
+You can find additional info here: https://bedware.software/en/posts/mybang/
