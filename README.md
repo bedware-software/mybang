@@ -19,7 +19,7 @@ However, unlike the original service, in MyBang! you will have the ability to cr
 
 # Installation
 ## Configure bangs
-Beforehand configure your `config.yaml` to suit your needs. You can use `config.yaml` from the project as template.
+Beforehand configure your `config.yaml` to suit your needs. You can use `config.yaml` from the project as a template.
 
 ## Run
 Two main options available: using Docker or using Maven
