@@ -1,20 +1,39 @@
+#Maven
 target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
 
 # Eclipse
-.settings/
-.classpath
 .project
+.classpath
+.settings/
+bin/
 
-# IntelliJ IDEA
-.idea/
-*.iws
-*.iml
+# IntelliJ
+.idea
 *.ipr
+*.iml
+*.iws
 
-# tmp
-my-bang/
-my-bang-runtime/
-dependency-reduced-pom.xml
+# NetBeans
+nb-configuration.xml
+
+# Visual Studio Code
+.vscode
+.factorypath
+
+# OSX
+.DS_Store
+
+# Vim
+*.swp
+*.swo
+
+# patch
+*.orig
+*.rej
+
+# Local environment
+.env
