@@ -14,6 +14,15 @@
 - name: MY_GITHUB_REPOS
   shortcut: ghr
   uri: https://github.com/bedware?tab=repositories&q=%s
+- name: MY_GITHUB_PROJECTS
+  shortcut: ghp
+  uri: https://github.com/bedware?tab=projects&query=%s
+- name: MY_GITHUB_ORGANIZATION_PROJECTS
+  shortcut: ghop
+  uri: https://github.com/orgs/bedware-software/projects?query=%s
+- name: MY_GITHUB_ORGANIZATION_REPOSITORIES
+  shortcut: ghor
+  uri: https://github.com/orgs/bedware-software/repositories?q=%s
 - name: LEARN_X_IN_Y_MINUTES
   shortcut: learn
   uri: https://learnxinyminutes.com/docs/%s/
@@ -23,6 +32,9 @@
 - name: JULIA
   shortcut: julia
   uri: https://docs.julialang.org/en/v1/search/?q=%s
+- name: WINGET
+  shortcut: winget
+  uri: https://winget.ragerworks.com/search/all/%s?limit=50
 # Apps
 - name: INFOMATE
   shortcut: news
